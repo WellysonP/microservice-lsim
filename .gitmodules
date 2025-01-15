@@ -1,0 +1,12 @@
+[submodule "server-lsim"]
+	path = server-lsim
+	url = git@github.com:WellysonP/server-lsim.git
+[submodule "gateway-lsim"]
+	path = gateway-lsim
+	url = git@github.com:WellysonP/gateway-lsim.git
+[submodule "pagamentos-lsim"]
+	path = pagamentos-lsim
+	url = git@github.com:WellysonP/pagamentos-lsim.git
+[submodule "pedidos-lsim"]
+	path = pedidos-lsim
+	url = git@github.com:WellysonP/pedidos-lsim.git
