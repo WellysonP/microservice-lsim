@@ -38,7 +38,7 @@ services:
   
   pagamentos-lsim:
     image: pagamentos-lsim
-    container_name: pagamentos-lsim
+    # container_name: pagamentos-lsim
     build:
       context: ./pagamentos-lsim
     ports:
@@ -58,7 +58,7 @@ services:
 
   pedidos-lsim:
     image: pedidos-lsim
-    container_name: pedidos-lsim
+    # container_name: pedidos-lsim
     build:
       context: ./pedidos-lsim
     ports:
