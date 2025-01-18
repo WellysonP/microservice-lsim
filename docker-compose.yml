@@ -10,25 +10,68 @@ services:
       - lsim-network
 
   server-lsim:
-    extends:
-      file: ./server-lsim/docker-compose.yml
-      service: server-lsim
-
-  pagamentos-lsim:
-    extends:
-      file: ./pagamentos-lsim/docker-compose.yml
-      service: pagamentos-lsim
-
-  pedidos-lsim:
-    extends:
-      file: ./pedidos-lsim/docker-compose.yml
-      service: pedidos-lsim
+    image: server-lsim
+    container_name: server-lsim
+    build:
+      context: ./server-lsim
+    ports:
+      - "8761:8761"
+    networks:
+      - lsim-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
 
   gateway-lsim:
-    extends:
-      file: ./gateway-lsim/docker-compose.yml
-      service: gateway-lsim
+    image: gateway-lsim
+    container_name: gateway-lsim
+    build:
+      context: ./gateway-lsim
+    ports:
+      - "8762:8762"
+    networks:
+      - lsim-network
+    depends_on:
+      - server-lsim
+    environment:
+      - EUREKA_SERVER_URL=http://server-lsim:8761/eureka/
+  
+  pagamentos-lsim:
+    image: pagamentos-lsim
+    build:
+      context: ./pagamentos-lsim
+    ports:
+      - "8080"
+    networks:
+      - lsim-network
+    depends_on:
+      - server-lsim
+    environment:
+      - DB_HOST=mysql-lsim
+      - DB_PORT=3306
+      - DB_NAME=lsimfood-pagamento
+      - DB_USERNAME=root
+      - DB_PASSWORD=mysql
+      - SERVER_PORT=0
+      - EUREKA_SERVER_URL=http://server-lsim:8761/eureka/
+
+  pedidos-lsim:
+    image: pedidos-lsim
+    build:
+      context: ./pedidos-lsim
+    ports:
+      - "8080"
+    networks:
+      - lsim-network
+    depends_on:
+      - server-lsim
+    environment:
+      - DB_HOST=mysql-lsim
+      - DB_PORT=3306
+      - DB_NAME=lsimfood-pedidos
+      - DB_USERNAME=root
+      - DB_PASSWORD=mysql
+      - SERVER_PORT=0
+      - EUREKA_SERVER_URL=http://server-lsim:8761/eureka/
 
 networks:
   lsim-network:
-    driver: bridge
