@@ -4,12 +4,13 @@ Este é um projeto de microsserviços que implementa um sistema de pedidos e pag
 
 ## Arquitetura
 
-O projeto é composto por 4 microsserviços:
+O projeto é composto por 5 microsserviços:
 
 - **server-lsim**: Servidor Eureka para service discovery (porta 8761)
 - **gateway-lsim**: API Gateway para roteamento de requisições (porta 8762)
 - **pedidos-lsim**: Serviço de gerenciamento de pedidos (porta dinâmica)
 - **pagamentos-lsim**: Serviço de gerenciamento de pagamentos (porta dinâmica)
+- **avalicacao-lsim**: Serviço de avalicação de pedidos (porta dinâmica)
 
 ## Pré-requisitos
 
