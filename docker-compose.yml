@@ -8,6 +8,21 @@ services:
       - "3306:3306"
     networks:
       - lsim-network
+  
+  rabbitmq:
+    image: rabbitmq:3.10-management
+    container_name: rabbitmq
+    networks:
+      - lsim-network
+    restart: always
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ./rabbitmq/dados:/var/lib/rabbitmq/
+    environment:
+        - RABBITMQ_DEFAULT_USER=lsim
+        - RABBITMQ_DEFAULT_PASS=lsim
 
   server-lsim:
     image: server-lsim
@@ -39,12 +54,13 @@ services:
     image: pagamentos-lsim
     build:
       context: ./pagamentos-lsim
-    ports:
-      - "8080"
+    # ports:
+    #   - "8080"
     networks:
       - lsim-network
     depends_on:
       - server-lsim
+      - rabbitmq
     environment:
       - DB_HOST=mysql-lsim
       - DB_PORT=3306
@@ -53,17 +69,22 @@ services:
       - DB_PASSWORD=mysql
       - SERVER_PORT=0
       - EUREKA_SERVER_URL=http://server-lsim:8761/eureka/
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=lsim
+      - RABBITMQ_PASSWORD=lsim
 
   pedidos-lsim:
     image: pedidos-lsim
     build:
       context: ./pedidos-lsim
-    ports:
-      - "8080"
+    # ports:
+    #   - "8080"
     networks:
       - lsim-network
     depends_on:
       - server-lsim
+      - rabbitmq
     environment:
       - DB_HOST=mysql-lsim
       - DB_PORT=3306
@@ -72,6 +93,29 @@ services:
       - DB_PASSWORD=mysql
       - SERVER_PORT=0
       - EUREKA_SERVER_URL=http://server-lsim:8761/eureka/
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=lsim
+      - RABBITMQ_PASSWORD=lsim
+
+  avaliacao-lsim:
+    image: avaliacao-lsim
+    build:
+      context: ./avaliacao-lsim
+    # ports:
+    #   - "8080"
+    networks:
+      - lsim-network
+    depends_on:
+      - server-lsim
+      - rabbitmq
+    environment:
+      - SERVER_PORT=0
+      - EUREKA_SERVER_URL=http://server-lsim:8761/eureka/
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=lsim
+      - RABBITMQ_PASSWORD=lsim
 
 networks:
   lsim-network:

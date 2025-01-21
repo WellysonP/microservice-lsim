@@ -10,3 +10,6 @@
 [submodule "pedidos-lsim"]
 	path = pedidos-lsim
 	url = git@github.com:WellysonP/pedidos-lsim.git
+[submodule "avaliacao-lsim"]
+	path = avaliacao-lsim
+	url = git@github.com:WellysonP/avaliacao-lsim.git
