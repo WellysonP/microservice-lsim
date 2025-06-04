@@ -115,18 +115,3 @@ microservice-lsim/
 ├── pedidos-lsim/ # Serviço de Pedidos
 └── docker-compose.yml
 ```
-
-
-## Contribuindo
-
-Para contribuir com o projeto:
-
-1. Faça um fork do repositório
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Commit suas mudanças (`git commit -am 'Adiciona nova feature'`)
-4. Push para a branch (`git push origin feature/nova-feature`)
-5. Crie um Pull Request
-
-## Licença
-
-Este projeto está sob a licença MIT.
