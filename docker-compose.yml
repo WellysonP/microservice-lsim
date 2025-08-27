@@ -25,7 +25,6 @@ services:
         - RABBITMQ_DEFAULT_PASS=lsim
 
   server-lsim:
-    image: server-lsim
     container_name: server-lsim
     build:
       context: ./server-lsim
@@ -37,7 +36,6 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
 
   gateway-lsim:
-    image: gateway-lsim
     container_name: gateway-lsim
     build:
       context: ./gateway-lsim
@@ -51,7 +49,6 @@ services:
       - EUREKA_SERVER_URL=http://server-lsim:8761/eureka/
   
   pagamentos-lsim:
-    image: pagamentos-lsim
     build:
       context: ./pagamentos-lsim
     # ports:
@@ -75,7 +72,6 @@ services:
       - RABBITMQ_PASSWORD=lsim
 
   pedidos-lsim:
-    image: pedidos-lsim
     build:
       context: ./pedidos-lsim
     # ports:
@@ -99,7 +95,6 @@ services:
       - RABBITMQ_PASSWORD=lsim
 
   avaliacao-lsim:
-    image: avaliacao-lsim
     build:
       context: ./avaliacao-lsim
     # ports:
